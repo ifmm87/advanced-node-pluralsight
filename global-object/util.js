@@ -1,0 +1,1 @@
+global.answer = 'Ivan Mujica';
