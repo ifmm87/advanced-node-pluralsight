@@ -6,8 +6,6 @@ let sockets = {};
 server.on('connection', socket => {
   socket.id = counter++;
   sockets[socket.id] = socket;
-  console.log('============================================');
-  console.log(sockets);
   console.log ('Client connected');
   socket.write('Welcome new client! \n');
 
