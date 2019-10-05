@@ -5,13 +5,21 @@ let sockets = {};
 
 server.on('connection', socket => {
   socket.id = counter++;
-  sockets[socket.id] = socket;
   console.log ('Client connected');
-  socket.write('Welcome new client! \n');
+  socket.write('Please type your name::::  \n');
 
   socket.on('data', data => {
-    Object.entries(sockets).forEach(([, cs]) => {
-      cs.write(`${socket.id}: `);
+    if (!sockets[socket.id]) {
+      socket.name = data.toString();
+      socket.write(`Welcome ${socket.name}`);
+      sockets[socket.id] = socket;
+      return;
+    }
+    Object.entries(sockets).forEach(([key, cs]) => {
+      if (socket.id == key){
+        return;
+      }
+      cs.write(`${socket.name}: `);
       cs.write(data);
     });
     // console.log('============================================');
